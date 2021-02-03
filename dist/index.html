@@ -14,13 +14,22 @@
             <p class="subtitle">
                 My first Tauri App with <strong>Bulma</strong>!
             </p>
-            <a class="button is-primary" onclick="sendCommand();">
-                Function
-            </a>
-            <a class="button is-primary" onclick="sendRequest();">
-                Request
-            </a>
-            <div id="response"></div>
+
+            <div class="columns">
+                <div class="column">
+                    <a class="button is-primary" onclick="sendCommand();">
+                        Function
+                    </a>
+                </div>
+                <div class="column">
+                    <a class="button is-primary" onclick="sendRequest();">
+                        Request
+                    </a>
+                </div>
+                <div class="column is-6" id="response">
+                  Fourth column
+                </div>
+              </div>
         </div>
     </section>
 </body>
