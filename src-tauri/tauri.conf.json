@@ -1,14 +1,14 @@
 {
   "build": {
     "distDir": "../dist",
-    "devPath": "http://localhost:4000",
+    "devPath": "../dist",
     "beforeDevCommand": "",
     "beforeBuildCommand": ""
   },
   "ctx": {},
   "tauri": {
     "embeddedServer": {
-      "active": true
+      "active": false
     },
     "bundle": {
       "active": true,
@@ -39,7 +39,7 @@
       "exceptionDomain": ""
     },
     "allowlist": {
-      "all": true
+      "all": false
     },
     "window": {
       "title": "Tauri Test App",
