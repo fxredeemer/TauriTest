@@ -3,7 +3,8 @@
     "distDir": "../dist",
     "devPath": "../dist",
     "beforeDevCommand": "",
-    "beforeBuildCommand": ""
+    "beforeBuildCommand": "",
+    "withGlobalTauri": true
   },
   "ctx": {},
   "tauri": {
@@ -39,7 +40,7 @@
       "exceptionDomain": ""
     },
     "allowlist": {
-      "all": false
+      "all": true
     },
     "window": {
       "title": "Tauri Test App",

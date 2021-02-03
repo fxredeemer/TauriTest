@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="bulma.css" rel="stylesheet">
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                Hello World
+            </h1>
+            <p class="subtitle">
+                My first Tauri App with <strong>Bulma</strong>!
+            </p>
+            <a class="button is-primary" onclick="sendCommand();">
+                Function
+            </a>
+            <a class="button is-primary" onclick="sendRequest();">
+                Request
+            </a>
+            <div id="response"></div>
+        </div>
+    </section>
+</body>
+
+<script>
+    function sendCommand() {
+        window.__TAURI__.tauri.invoke({
+            cmd: 'executeCommand',
+            argument: "Helooouuu"
+        });
+    }
+
+    function sendRequest() {
+        window.__TAURI__.tauri
+            .promisified({
+                cmd: "performRequest",
+                data: "dummy endpoint arg"
+            })
+            .then(function (response) {
+                document.getElementById("response").innerHTML =
+                    typeof response === "object" ? JSON.stringify(response) : response;
+            });
+    }
+</script>
+
+</html>

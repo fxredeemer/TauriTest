@@ -1,7 +1,3 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/node
-# Edit at https://www.toptal.com/developers/gitignore?templates=node
-
 ### Node ###
 # Logs
 logs
@@ -10,6 +6,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+
+# Auto generated Tauri html
+dist/index.tauri.html
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -85,19 +84,6 @@ typings/
 .cache
 .parcel-cache
 
-# Next.js build output
-.next
-
-# Nuxt.js build / generate output
-.nuxt
-dist
-
-# Gatsby files
-.cache/
-# Comment in the public line in if your project uses Gatsby and not Next.js
-# https://nextjs.org/blog/next-9-1#public-directory-support
-# public
-
 # vuepress build output
 .vuepress/dist
 
@@ -115,5 +101,3 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
-
-# End of https://www.toptal.com/developers/gitignore/api/node
