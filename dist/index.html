@@ -17,42 +17,23 @@
 
             <div class="columns">
                 <div class="column">
-                    <a class="button is-primary" onclick="sendCommand();">
+                    <a class="button is-primary" id="functionButton">
                         Function
                     </a>
                 </div>
                 <div class="column">
-                    <a class="button is-primary" onclick="sendRequest();">
+                    <a class="button is-primary" id="requestButton">
                         Request
                     </a>
                 </div>
                 <div class="column is-6" id="response">
-                  Fourth column
+                    Fourth column
                 </div>
-              </div>
+            </div>
         </div>
     </section>
 </body>
 
-<script>
-    function sendCommand() {
-        window.__TAURI__.tauri.invoke({
-            cmd: 'executeCommand',
-            argument: "Helooouuu"
-        });
-    }
-
-    function sendRequest() {
-        window.__TAURI__.tauri
-            .promisified({
-                cmd: "performRequest",
-                data: "dummy endpoint arg"
-            })
-            .then(function (response) {
-                document.getElementById("response").innerHTML =
-                    typeof response === "object" ? JSON.stringify(response) : response;
-            });
-    }
-</script>
+<script src="communication.js"></script>
 
 </html>
