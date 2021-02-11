@@ -3,9 +3,8 @@ use serde::Deserialize;
 #[derive(Deserialize)]
 #[serde(tag = "cmd", rename_all = "camelCase")]
 pub enum Cmd {
-  StartCommunication { 
-    baud: i32,
-    port: String,
+  StartCommunication {
+    address: String,
     callback: String,
     error: String,  
   },

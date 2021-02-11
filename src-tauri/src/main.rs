@@ -2,11 +2,12 @@
   all(not(debug_assertions), target_os = "windows"),
   windows_subsystem = "windows"
 )]
-extern crate serde;
 
-mod serial;
 mod cmd;
+mod crawl;
+
 use cmd::Cmd::*;
+
 
 fn main() {
   tauri::AppBuilder::new()
@@ -15,10 +16,10 @@ fn main() {
         Err(e) => Err(e.to_string()),
         Ok(command) => {
           match command {
-            StartCommunication { baud, port, callback, error } => tauri::execute_promise(
+            StartCommunication { address, callback, error } => tauri::execute_promise(
               _webview,
               move || {
-                println!("{} {}", baud, port);
+                println!("{}", address);
                 Ok("Success")
               },
               callback,
