@@ -1,20 +1,27 @@
 document
-  .getElementById("functionButton")
+  .getElementById("startExecution")
   .addEventListener("click", function () {
-    window.__TAURI__.tauri.invoke({
-      cmd: "executeCommand",
-      argument: "Hello World",
-    });
-  });
-
-document.getElementById("requestButton").addEventListener("click", function () {
-  window.__TAURI__.tauri
+    var baudRate = Number(document.getElementById("baudRate").value);
+    var port = document.getElementById("port").value;
+    window.__TAURI__.tauri
     .promisified({
-      cmd: "performRequest",
-      data: "dummy data",
+      cmd: "startCommunication",
+      baud: baudRate,
+      port: port
     })
     .then(function (response) {
-      document.getElementById("response").innerHTML =
+      document.getElementById("connectionResult").innerHTML =
         typeof response === "object" ? JSON.stringify(response) : response;
     });
-});
+  });
+  
+window.onload = function (){
+  window.__TAURI__.tauri
+  .promisified({
+    cmd: "getPortInfo",
+  })
+  .then(function (response) {
+    document.getElementById("content").innerHTML =
+      typeof response === "object" ? JSON.stringify(response) : response;
+  });
+}
