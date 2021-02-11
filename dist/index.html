@@ -8,26 +8,29 @@
 <body>
     <section class="section">
         <div class="container">
-            <h1 class="title">
-                Hello World
-            </h1>
-            <p class="subtitle">
-                My first Tauri App with <strong>Bulma</strong>!
-            </p>
-
             <div class="columns">
-                <div class="column">
-                    <a class="button is-primary" id="functionButton">
-                        Function
+                <div>
+                    <label class="column label">Baud Rate</label>
+                    <div class="control column">
+                        <input class="input">
+    
+                    </div>
+                </div>
+                <div>
+                    <label class="column label">Port</label>
+                    <div class="control column">
+                        <input class="input">
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <a class="button is-primary is-large" id="requestButton">
+                        Start
                     </a>
                 </div>
-                <div class="column">
-                    <a class="button is-primary" id="requestButton">
-                        Request
-                    </a>
-                </div>
-                <div class="column is-6" id="response">
-                    Fourth column
+            </div>
+            <div class="columns">
+                <div class="box column" id="content">
+
                 </div>
             </div>
         </div>
