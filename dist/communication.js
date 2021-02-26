@@ -1,10 +1,10 @@
 document
-  .getElementById("startExecution")
+  .getElementById("connect")
   .addEventListener("click", function () {
     var address = document.getElementById("address").value;
     window.__TAURI__.tauri
       .promisified({
-        cmd: "startCommunication",
+        cmd: "connect",
         address: address,
       })
       .then(function (response) {
