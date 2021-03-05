@@ -8,15 +8,20 @@ document
                 address: address,
             })
             .then(function (response) {
-                document.getElementById("content").innerHTML =
-                    typeof response === "object" ? JSON.stringify(response) : response;
+                console.log(response);
+                if(response === "Success"){
+                    document.getElementById("statusmessage").innerHTML = "Connected";
+                }
+                else {
+                    document.getElementById("statusmessage").innerHTML = "Connection Error";
+                }
             });
     });
 
 
 window.__TAURI__.event
     .listen("rust-event", function (response) {
-        var list = document.getElementById('content');
+        var list = document.getElementById('messages');
         var entry = document.createElement('li');
 
         var data = response.payload.data;

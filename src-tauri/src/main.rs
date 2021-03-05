@@ -6,9 +6,6 @@
 mod cmd;
 
 use cmd::Cmd::*;
-use futures::executor::block_on;
-use futures::prelude::*;
-use irc::client::prelude::*;
 use serde::Serialize;
 use std::thread;
 use std::time::Duration;
@@ -49,22 +46,6 @@ fn setup_event_to_js(webview: &mut tauri::Webview) {
         tauri::event::emit(&mut webview, String::from("rust-event"), Some(reply))
             .expect("failed to emit");
     });
-}
-
-async fn start_chat_async() {
-    let mut client = Client::new("../config.toml").await.unwrap();
-
-    // identify comes from ClientExt
-    client.identify().unwrap();
-    let mut stream = client.stream().unwrap();
-    while let Some(message) = stream.next().await.transpose().unwrap() {
-        if let Command::PRIVMSG(channel, message) = message.command {
-            if message.contains(&*client.current_nickname()) {
-                // send_privmsg comes from ClientExt
-                client.send_privmsg(&channel, "beep boop").unwrap();
-            }
-        }
-    }
 }
 
 fn execute_command(_webview: &mut tauri::Webview, command: cmd::Cmd) -> () {
