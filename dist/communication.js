@@ -15,6 +15,12 @@ document
 
 
 window.__TAURI__.event
-    .listen("rust-event", function (res) {
-        console.log("asdas");
+    .listen("rust-event", function (response) {
+        var list = document.getElementById('content');
+        var entry = document.createElement('li');
+
+        var data = response.payload.data;
+
+        entry.appendChild(document.createTextNode(data));
+        list.appendChild(entry);
     });
