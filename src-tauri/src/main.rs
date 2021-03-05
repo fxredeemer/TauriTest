@@ -9,24 +9,49 @@ use cmd::Cmd::*;
 use futures::executor::block_on;
 use futures::prelude::*;
 use irc::client::prelude::*;
+use serde::Serialize;
+use std::thread;
+use std::time::Duration;
+
+#[derive(Serialize)]
+struct Reply {
+    data: String,
+}
 
 fn main() {
-    block_on(start_chat_async());
-
     tauri::AppBuilder::new()
-        .invoke_handler(|_webview, arg| match serde_json::from_str(arg) {
-            Err(e) => Err(e.to_string()),
-            Ok(command) => {
-                execute_command(_webview, command);
-                Ok(())
-            }
+        .setup(|webview, _| {
+            setup_event_to_js(webview);
         })
+        .invoke_handler(|webview, arg| handle_invocation(webview, arg))
         .build()
         .run();
 }
 
+fn handle_invocation(webview: &mut tauri::Webview, arg: &str) -> Result<(), String> {
+    match serde_json::from_str(arg) {
+        Err(e) => Err(e.to_string()),
+        Ok(command) => {
+            execute_command(webview, command);
+            Ok(())
+        }
+    }
+}
+
+fn setup_event_to_js(webview: &mut tauri::Webview) {
+    let mut webview = webview.as_mut();
+    thread::spawn(move || loop {
+        let reply = Reply {
+            data: "something else".to_string(),
+        };
+
+        thread::sleep(Duration::from_secs(1));
+        tauri::event::emit(&mut webview, String::from("rust-event"), Some(reply))
+            .expect("failed to emit");
+    });
+}
+
 async fn start_chat_async() {
-    // configuration is loaded from config.toml into a Config
     let mut client = Client::new("../config.toml").await.unwrap();
 
     // identify comes from ClientExt
