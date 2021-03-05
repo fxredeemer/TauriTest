@@ -39,23 +39,24 @@ fn setup_event_to_js(webview: &mut tauri::Webview) {
     let mut webview = webview.as_mut();
     thread::spawn(move || loop {
         let reply = Reply {
-            data: "something else".to_string(),
+            data: "data from rust".to_string(),
         };
 
-        thread::sleep(Duration::from_secs(1));
         tauri::event::emit(&mut webview, String::from("rust-event"), Some(reply))
-            .expect("failed to emit");
+        .expect("failed to emit");
+
+        thread::sleep(Duration::from_secs(3));
     });
 }
 
-fn execute_command(_webview: &mut tauri::Webview, command: cmd::Cmd) -> () {
+fn execute_command(webview: &mut tauri::Webview, command: cmd::Cmd) -> () {
     match command {
         Connect {
             address,
             callback,
             error,
         } => tauri::execute_promise(
-            _webview,
+            webview,
             move || {
                 println!("{}", address);
                 Ok("Success")
@@ -63,11 +64,8 @@ fn execute_command(_webview: &mut tauri::Webview, command: cmd::Cmd) -> () {
             callback,
             error,
         ),
-        GetPortInfo { callback, error } => tauri::execute_promise(
-            _webview,
-            move || Ok("{ key: 'response', value: [{ id: 3 }] }".to_string()),
-            callback,
-            error,
-        ),
+        Setup => {
+            print!("setup from web view");
+        },
     }
 }

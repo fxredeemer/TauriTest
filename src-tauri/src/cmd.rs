@@ -8,8 +8,5 @@ pub enum Cmd {
         callback: String,
         error: String,
     },
-    GetPortInfo {
-        callback: String,
-        error: String,
-    },
+    Setup,
 }

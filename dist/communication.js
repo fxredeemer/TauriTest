@@ -9,7 +9,7 @@ document
             })
             .then(function (response) {
                 console.log(response);
-                if(response === "Success"){
+                if (response === "Success") {
                     document.getElementById("statusmessage").innerHTML = "Connected";
                 }
                 else {
@@ -17,6 +17,15 @@ document
                 }
             });
     });
+
+document
+    .getElementById("setup")
+    .addEventListener("click", function () {
+        window.__TAURI__.tauri.invoke({
+            cmd: "setup",
+            payload: "command payload",
+          })
+    })
 
 
 window.__TAURI__.event
